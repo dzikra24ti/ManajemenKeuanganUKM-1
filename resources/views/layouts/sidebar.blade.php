@@ -28,4 +28,14 @@
         <div class="fw-semibold">{{ auth()->user()->name ?? 'Admin' }}</div>
         <small class="text-muted">Administrator</small>
     </div>
+    <form action="{{ route('logout') }}" method="POST">
+    @csrf
+    <button
+        type="submit"
+        class="text-black hover:underline"
+    >
+        Logout
+    </button>
+</form>
+
 </div>

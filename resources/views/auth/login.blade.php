@@ -42,33 +42,36 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                    <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required autofocus>
-                </div>
-            </div>
+      <form method="POST" action="{{ route('login.process') }}">
+    @csrf
 
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                    <input type="password" class="form-control" id="password" name="password" required>
-                </div>
-            </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+            <input type="email" class="form-control" id="email" name="email"
+                   value="{{ old('email') }}" required autofocus>
+        </div>
+    </div>
 
-            <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="remember" name="remember">
-                <label class="form-check-label" for="remember">Ingat saya</label>
-            </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+    </div>
 
-            <button type="submit" class="btn btn-primary w-100 mb-3">
-                <i class="fas fa-sign-in-alt me-2"></i> Login
-            </button>
-        </form>
+    <button type="submit" class="btn btn-primary w-100">
+        Login
+    </button>
+</form>
+
+        <p class="text-sm text-center mt-4">
+    Belum punya akun?
+    <a href="{{ route('register') }}" class="text-blue-600">Daftar</a>
+</p>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
