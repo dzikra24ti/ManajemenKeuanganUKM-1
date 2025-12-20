@@ -24,54 +24,48 @@
     <!-- Card Table -->
     <div class="card shadow-sm">
         <div class="card-body p-0">
-            <table class="table table-hover mb-0">
-                <thead class="table-light">
-                    <tr>
-                        <th>Tanggal</th>
-                        <th>Jenis</th>
-                        <th>Kategori</th>
-                        <th class="text-end">Jumlah</th>
-                        <th class="text-center" width="160">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($transaksi as $t)
-                        <tr>
-                            <td>{{ \Carbon\Carbon::parse($t->tanggal)->format('d M Y') }}</td>
-                            <td>
-                                <span class="badge {{ $t->jenis == 'masuk' ? 'bg-success' : 'bg-danger' }}">
-                                    {{ $t->jenis == 'masuk' ? 'Pemasukan' : 'Pengeluaran' }}
-                                </span>
-                            </td>
-                            <td>{{ $t->kategori }}</td>
-                            <td class="text-end">Rp {{ number_format($t->jumlah, 0, ',', '.') }}</td>
-                            <td class="text-center">
-                                <a href="{{ route('transaksi.edit', $t->id) }}"
-                                   class="btn btn-sm btn-warning">
-                                    Edit
-                                </a>
+           <table class="table">
+    <thead>
+        <tr>
+            <th>Tanggal</th>
+            <th>Kategori</th>
+            <th>Keterangan</th>
+            <th>Nominal</th>
+            <th>Bukti</th> <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+  @foreach($transaksi as $t)
+<tr>
+    <td>{{ $t->tanggal }}</td>
+    <td>{{ $t->kategori }}</td>
+    <td>{{ $t->keterangan }}</td>
+    <td>Rp {{ number_format($t->jumlah) }}</td>
+    <td>
+        @if($t->bukti_pembayaran)
+            <img src="{{ asset('uploads/bukti/' . $t->bukti_pembayaran) }}" width="50" class="rounded">
+        @endif
+    </td>
 
-                                <form action="{{ route('transaksi.destroy', $t->id) }}"
-                                      method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                            onclick="return confirm('Yakin ingin menghapus transaksi ini?')"
-                                            class="btn btn-sm btn-danger">
-                                        Hapus
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="5" class="text-center text-muted py-4">
-                                Belum ada transaksi
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+    <td>
+        <div class="d-flex align-items-center gap-2">
+            <a href="{{ route('transaksi.edit', $t->id) }}" class="btn btn-warning btn-sm text-white flex-shrink-0">
+                <i class="fas fa-edit"></i> Edit
+            </a>
+
+            <form action="{{ route('transaksi.destroy', $t->id) }}" method="POST" class="m-0">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger btn-sm flex-shrink-0" onclick="return confirm('Yakin ingin menghapus?')">
+                    <i class="fas fa-trash"></i> Hapus
+                </button>
+            </form>
+        </div>
+    </td>
+</tr>
+@endforeach
+    </tbody>
+</table>
         </div>
     </div>
 
