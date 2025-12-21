@@ -22,29 +22,29 @@ class TransaksiController extends Controller
         return view('admin.transaksi.create');
     }
 
-  public function store(Request $request)
+ public function store(Request $request)
 {
-    $request->validate([
+    $validated = $request->validate([
         'tanggal' => 'required',
         'jenis' => 'required',
         'kategori' => 'required',
-        'jumlah' => 'required|numeric', // Sesuaikan di sini
+        'jumlah' => 'required|numeric',
         'keterangan' => 'required',
         'bukti_pembayaran' => 'nullable|image|max:2048',
     ]);
-
-    $data = $request->all();
 
     if ($request->hasFile('bukti_pembayaran')) {
         $file = $request->file('bukti_pembayaran');
         $nama_file = time() . "_" . $file->getClientOriginalName();
         $file->move(public_path('uploads/bukti'), $nama_file);
-        $data['bukti_pembayaran'] = $nama_file;
+        $validated['bukti_pembayaran'] = $nama_file; // Masukkan nama file ke data validasi
     }
 
-    Transaksi::create($data); // Data akan tersimpan ke tabel 'transaksi'
+    // Gunakan $validated untuk keamanan
+    Transaksi::create($validated); 
 
-    return redirect()->route('transaksi.index');
+    return redirect()->route('transaksi.index')
+        ->with('success', 'Transaksi berhasil disimpan!');
 }
 
     public function update(Request $request, Transaksi $transaksi)

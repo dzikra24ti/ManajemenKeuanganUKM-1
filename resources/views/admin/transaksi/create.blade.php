@@ -30,11 +30,11 @@
                    value="{{ old('kategori') }}" required>
         </div>
 
-        <div class="mb-3">
-            <label>Nominal</label>
-            <input type="text" name="Nominal" class="form-control"
-                   value="{{ old('Nominal') }}" required>
-        </div>
+<div class="mb-3">
+    <label>Nominal</label>
+    <input type="number" name="jumlah" class="form-control" 
+           value="{{ old('jumlah') }}" required> 
+</div>
 
         <div class="mb-3">
             <label>Keterangan</label>

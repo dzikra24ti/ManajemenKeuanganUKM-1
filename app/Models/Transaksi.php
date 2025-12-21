@@ -10,12 +10,12 @@ class Transaksi extends Model
     protected $table = 'transaksi';
 
     // Kolom yang boleh diisi (mass assignment)
- protected $fillable = [
+protected $fillable = [
     'tanggal',
     'jenis',
     'kategori',
-    'jumlah', // Ganti 'nominal' menjadi 'jumlah'
+    'jumlah', // Pastikan namanya 'jumlah', bukan 'Nominal'
     'keterangan',
-    'bukti_pembayaran',
+    'bukti_pembayaran'
 ];
 }
